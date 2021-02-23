@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<style type="text/css">
+		* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Josefin Sans', sans-serif
+}
+
+body {
+  background: lightblue;
+}
+
+.container { 
+	height:85vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+ }
+		#card {	width:50%; text-align: center;
+ 	height: 400px; border-radius: 10px;
+ 	padding:20px 0;
+ 	justify-content: center;
+ 	display: flex; background: #fff;
+ 	align-items: center;
+ 	flex-direction: column;
+ 	box-shadow: 0 8px 6px -6px black;}
+
+ 	.card img {height: auto; width: 200px; margin: 0 0 15px;}
+
+ 	.card-footer {  padding:5px; display: flex; justify-content: center; padding: 20px 0 }
+ 	.social { text-align: center; margin: 0 25px; }
+
+	</style>
+</head>
+<body>
+
+	<div class="container">	</div>
+
+	<script type="text/javascript">
+		
+		const container = document.querySelector('.container');
+
+		const request = new XMLHttpRequest();
+		request.open('GET', "http://restcountries.eu/rest/v2/name/nepal");
+		request.send();
+
+		// to get the response
+
+		request.addEventListener('load', function(){
+			const [data] =	JSON.parse(this.responseText);
+
+			const htmlData = `<div id="card">
+				<article class="card">
+					<img src="${data.flag}" alt="">
+					<h1>
+						${data.name}
+					</h1>
+					<p>
+						Capital : ${data.capital}
+					</p>
+				</article>
+
+				<div class="card-footer">
+					<div class="social">
+						<h3>${data.nativeName}</h3>
+						<p>Native Language</p>
+					</div>
+					<div class="social">
+						<h3>${data.population}</h3>
+						<p> Population</p>
+					</div>
+					<div class="social">
+						<h3>${data.demonym}</h3>
+						<p> Demonym</p>
+					</div>
+				</div>
+			</div>`;
+
+			container.insertAdjacentHTML("afterbegin",htmlData )
+
+		})
+
+
+	</script>
+
+</body>
+</html>
